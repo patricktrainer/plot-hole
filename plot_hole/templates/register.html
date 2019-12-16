@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="columns is-mobile is-centered">
+
+  <div class="column is-half">
+    <form method="POST" action="">
+      {{ form.hidden_tag() }}
+
+      <div class="field">
+          {{ form.email(class="input", placeholder="Email") }}
+      </div>
+
+      <div class="field">
+          {{ form.password(class="input", placeholder="Password") }}
+      </div>
+
+      <div class="field">
+          {{ form.confirm_password(class="input", placeholder="Confirm Password") }}
+
+      </div>
+
+      <div class="field">
+
+          {{ form.submit(class="button is-primary is-outlined is-rounded")}}
+
+      </div>
+    </form>
+
+    <div class="container">
+      <div class="content has-text-centered has-text-grey">
+        <p>
+          <br>
+          Already have an account?
+          <br>
+          <br>
+          <a class="button is-light is-outlined" href={{ url_for("login") }}>
+            login
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

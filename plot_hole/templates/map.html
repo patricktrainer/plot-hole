@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block map %}
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css' type='text/css' />
+<!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+
+<div class="level">
+  <div class="level-item">
+    <div id='map' style='width: 820px; height: 640px;'></div>
+    <script>
+      mapboxgl.accessToken = 'pk.eyJ1IjoianNvbWEiLCJhIjoibFJmYl9JWSJ9.AUm8d76cbOvVEn2mMeG_ZA';
+      // Set bounds to New Olreans, LA
+      var bounds = [
+        [-90.301466, 29.835254], // Southwest coordinates
+        [-89.898965, 30.064905] // Northeast coordinates
+      ];
+
+      var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/dark-v10',
+        center: [-90.08, 29.95],
+        zoom: 12,
+        maxBounds: bounds // Sets bounds as max
+      });
+
+      map.on('load', function() {
+        var geojsonData = {
+          "type": "FeatureCollection",
+          "features": [{
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [0, 0]
+            }
+          }]
+        };
+
+        // Add geocoder input box to map
+        map.addControl(new MapboxGeocoder({
+          accessToken: mapboxgl.accessToken,
+          mapboxgl: mapboxgl
+        }));
+
+        // Add geolocate control to the map.
+        map.addControl(new mapboxgl.GeolocateControl({
+          positionOptions: {
+            enableHighAccuracy: true
+          },
+          trackUserLocation: true
+        }));
+
+      })
+    </script>
+  </div>
+</div>
+
+{% endblock %}
