@@ -24,7 +24,7 @@
 <body>
   <nav class="navbar is-black is-spaced" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item has-text-primary has-text-weight-semibold" href={{ url_for("home") }}>
+      <a class="navbar-item has-text-white " href={{ url_for("home") }}>
         P l o t H o l e
       </a>
     </div>
@@ -47,14 +47,11 @@
           </a>
 
           <div class="navbar-dropdown">
-            <a class="navbar-item" href={{ url_for("map") }}>
-              Plot
-            </a>
             <a class="navbar-item" href={{ url_for("home") }}>
               About
             </a>
-            <a class="navbar-item" href={{ url_for("login") }}>
-              Log In
+            <a class="navbar-item" href={{ url_for("home") }}>
+              Statistics
             </a>
             <hr class="navbar-divider">
             <a class="navbar-item" href={{ url_for("home") }}>
@@ -70,9 +67,21 @@
         <div class="navbar-item">
 
           <div class="buttons">
+            {% if current_user.is_authenticated %}
+            <a class="button is-light is-outlined is-rounded" href={{ url_for("map") }}>
+              Plot!
+            </a>
+            <a class="button is-danger is-outlined is-rounded" href={{ url_for("logout") }}>
+              Logout
+            </a>
+            {% else %}
+            <a class="button is-light is-outlined is-rounded" href={{ url_for("login") }}>
+              Login
+            </a>
             <a class="button is-primary is-outlined is-rounded" href={{ url_for("register") }}>
               Sign Up
             </a>
+            {% endif %}
           </div>
         </div>
       </div>
