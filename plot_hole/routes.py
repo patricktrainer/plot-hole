@@ -56,7 +56,7 @@ def login():
                                                form.password.data):
             login_user(user, remember=False)
             flash('You have been logged in!')
-            return redirect(url_for('home'))
+            return redirect(url_for('map'))
         else:
             flash('Login Unsuccessful - Check Email or Password')
     return render_template('login.html', title='Login', form=form)
