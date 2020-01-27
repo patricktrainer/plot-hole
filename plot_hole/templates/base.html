@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>A pothole plotter - PlotHole</title>
+  <title>Plot Potholes - PlotHole</title>
 
   <link rel="stylesheet" href={{ url_for('static',filename='node_modules/bulma-start/css/main.css') }}>
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
@@ -24,7 +24,7 @@
 <body>
   <nav class="navbar is-black is-spaced" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item has-text-primary has-text-weight-semibold" href={{ url_for("home") }}>
+      <a class="navbar-item has-text-white " href={{ url_for("home") }}>
         P l o t H o l e
       </a>
     </div>
@@ -45,21 +45,26 @@
           <a class="navbar-link has-text-grey-light">
             More
           </a>
-
           <div class="navbar-dropdown">
-            <a class="navbar-item" href={{ url_for("map") }}>
-              Plot
-            </a>
             <a class="navbar-item" href={{ url_for("home") }}>
               About
             </a>
-            <a class="navbar-item" href={{ url_for("login") }}>
-              Log In
+            <a class="navbar-item" href={{ url_for("home") }}>
+              Statistics
+            </a>
+            <a class="navbar-item" href={{ url_for("home") }}>
+              Report an Issue
             </a>
             <hr class="navbar-divider">
-            <a class="navbar-item" href={{ url_for("home") }}>
-              Report an issue
+            {% if current_user.is_authenticated %}
+            <a class="navbar-item" href={{ url_for("logout") }}>
+              Logout
             </a>
+            {% else %}
+            <a class="navbar-item" href={{ url_for("register") }}>
+              Register
+            </a>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -70,9 +75,21 @@
         <div class="navbar-item">
 
           <div class="buttons">
-            <a class="button is-primary is-outlined is-rounded" href={{ url_for("register") }}>
-              Sign Up
+        {% if current_user.is_authenticated %}
+            <a class="button is-light is-outlined is-rounded" href={{ url_for("map") }}>
+              Plot!
             </a>
+            <a class="button is-warning is-outlined is-rounded" href={{ url_for("account") }}>
+              Account
+            </a>
+            {% else %}
+            <a class="button is-light is-outlined is-rounded" href={{ url_for("login") }}>
+              Login
+            </a>
+            <a class="button is-primary is-outlined is-rounded" href={{ url_for("register") }}>
+              Register
+            </a>
+            {% endif %}
           </div>
         </div>
       </div>
