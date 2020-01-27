@@ -1,7 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request
-from plot_hole import app
+from plot_hole import app, db, bcrypt
 from plot_hole.forms import RegistrationForm, LoginForm
 from plot_hole.models import User
+from flask_login import login_user
 
 plots = [{
     '-90.7314': '89.6431',
@@ -32,8 +33,17 @@ def plot():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(
+            form.password.data).decode('utf-8')
+
+        user = User(username=form.email.data,
+                    email=form.email.data,
+                    password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+
         flash(f'Account created for {form.email.data}!')
-        return redirect(url_for('map'))
+        return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
 
@@ -41,9 +51,12 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        for user in User.query.all():
-            if user == form.email.data:
-
-                flash('You have been logged in!')
-                return redirect(url_for('home'))
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password,
+                                               form.password.data):
+            login_user(user, remember=False)
+            flash('You have been logged in!')
+            return redirect(url_for('home'))
+        else:
+            flash('Login Unsuccessful - Check Email or Password')
     return render_template('login.html', title='Login', form=form)
