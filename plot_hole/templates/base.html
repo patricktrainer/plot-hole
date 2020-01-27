@@ -45,7 +45,6 @@
           <a class="navbar-link has-text-grey-light">
             More
           </a>
-
           <div class="navbar-dropdown">
             <a class="navbar-item" href={{ url_for("home") }}>
               About
@@ -53,10 +52,19 @@
             <a class="navbar-item" href={{ url_for("home") }}>
               Statistics
             </a>
-            <hr class="navbar-divider">
             <a class="navbar-item" href={{ url_for("home") }}>
-              Report an issue
+              Report an Issue
             </a>
+            <hr class="navbar-divider">
+            {% if current_user.is_authenticated %}
+            <a class="navbar-item" href={{ url_for("logout") }}>
+              Logout
+            </a>
+            {% else %}
+            <a class="navbar-item" href={{ url_for("register") }}>
+              Register
+            </a>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -67,19 +75,19 @@
         <div class="navbar-item">
 
           <div class="buttons">
-            {% if current_user.is_authenticated %}
+        {% if current_user.is_authenticated %}
             <a class="button is-light is-outlined is-rounded" href={{ url_for("map") }}>
               Plot!
             </a>
-            <a class="button is-danger is-outlined is-rounded" href={{ url_for("logout") }}>
-              Logout
+            <a class="button is-warning is-outlined is-rounded" href={{ url_for("account") }}>
+              Account
             </a>
             {% else %}
             <a class="button is-light is-outlined is-rounded" href={{ url_for("login") }}>
               Login
             </a>
             <a class="button is-primary is-outlined is-rounded" href={{ url_for("register") }}>
-              Sign Up
+              Register
             </a>
             {% endif %}
           </div>

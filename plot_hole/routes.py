@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request
 from plot_hole import app, db, bcrypt
 from plot_hole.forms import RegistrationForm, LoginForm
 from plot_hole.models import User
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 plots = [{
     '-90.7314': '89.6431',
@@ -59,8 +59,10 @@ def login():
         if user and bcrypt.check_password_hash(user.password,
                                                form.password.data):
             login_user(user, remember=False)
+            next_page = request.args.get('next')
             flash('You have been logged in!')
-            return redirect(url_for('map'))
+            return redirect(next_page) if next_page else redirect(
+                url_for('map'))
         else:
             flash('Login Unsuccessful - Check Email or Password')
     return render_template('login.html', title='Login', form=form)
@@ -70,3 +72,9 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+
+@app.route('/account')
+@login_required
+def account():
+    return render_template('account.html', title='Account')
