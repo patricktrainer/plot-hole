@@ -22,89 +22,31 @@
 
 
 </head>
+  <body>
+    {% include "includes/navbar.html" %}
+
+    <section class="hero is-fullheight">
+      <div class="hero-body">
+        <div class='container'>
+
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+          {% for category, message in messages %}
+          <div class="notification is-primary has-text-centered">
+            {{ message }}
+          </div>
+          {% endfor %}
+          {% endif %}
+          {% endwith %}
+
+          {% block content %}
+          {% endblock %}
 
 
+        </div>
+      </div>
+    </section>
+  </body>
 
-<body>
-
-  <nav class="navbar">
-    <div class="navbar-brand">
-    <a class="navbar-item" href={{ url_for("home") }}>
-      P l o t H o l e
-    </a>
-    </div>
-
-    <div class="navbar-burger" onclick="document.querySelector('.navbar-burger').classList.toggle('is-active');
-    document.querySelector('.navbar-menu').classList.toggle('is-active');">
-    <span></span>
-    <span></span>
-    <span></span>
-    </div>
-
-    <div class="navbar-menu">
-
-
-      <a class="navbar-item " href={{ url_for("home") }}>
-        Home
-      </a>
-      <a class="navbar-item" href={{ url_for("home") }}>
-        About
-      </a>
-      <a class="navbar-item" href={{ url_for("map") }}>
-        Map
-      </a>
-      <a class="navbar-item" href={{ url_for("home") }}>
-        Report an Issue
-      </a>
-      {% if current_user.is_authenticated %}
-      <a class="navbar-item" href={{ url_for("logout") }}>
-        Logout
-      </a>
-      <a class="navbar-item" href={{ url_for("account") }}>
-        Account
-      </a>
-      {% else %}
-      <a class="navbar-item" href={{ url_for("login") }}>
-        Login
-      </a>
-      <a class="navbar-item" href={{ url_for("register") }}>
-        Register
-      </a>
-      {% endif %}
-
-  </div>
-  </nav>
-
-
-  <section class="hero is-fullheight">
-  <div class="hero-body">
-  <div class='container'>
-
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    <div class="notification is-primary has-text-centered">
-      {{ message }}
-    </div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-
-    {% block content %}
-    {% endblock %}
-
-
-  </div>
-  </div>
-  </section>
-</body>
-
-<footer class="footer has-background-light">
-  <div class="content has-text-centered has-text-grey">
-  <p>
-  <strong>PlotHole</strong> by Patrick Trainer.
-  </p>
-  </div>
-</footer>
-
+{% include "includes/footer.html" %}
 </html>
