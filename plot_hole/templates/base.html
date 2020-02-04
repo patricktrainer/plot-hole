@@ -27,40 +27,11 @@
 
 <body>
 
-  <nav class="navbar is-black " role="navigation" aria-label="dropdown navigation">
-
+  <nav class="navbar">
     <div class="navbar-brand">
-    <a class="navbar-item has-text-white " href={{ url_for("home") }}>
+    <a class="navbar-item" href={{ url_for("home") }}>
       P l o t H o l e
     </a>
-    </div>
-
-    <div class="navbar-end">
-    <div class="navbar-menu">
-      <a class="navbar-item has-text-grey-light" href={{ url_for("home") }}>
-        Home
-      </a>
-      <a class="navbar-item has-text-grey-light" href={{ url_for("home") }}>
-        About
-      </a>
-      <a class="navbar-item has-text-grey-light" href={{ url_for("home") }}>
-        Statistics
-      </a>
-      <a class="navbar-item has-text-grey-light" href={{ url_for("home") }}>
-        Report an Issue
-      </a>
-      {% if current_user.is_authenticated %}
-      <a class="navbar-item has-text-grey-light" href={{ url_for("logout") }}>
-        Logout
-      </a>
-      {% else %}
-      <a class="navbar-item has-text-grey-light" href={{ url_for("login") }}>
-        Login
-      </a>
-      <a class="navbar-item has-text-grey-light" href={{ url_for("register") }}>
-        Register
-      </a>
-      {% endif %}
     </div>
 
     <div class="navbar-burger" onclick="document.querySelector('.navbar-burger').classList.toggle('is-active');
@@ -70,12 +41,42 @@
     <span></span>
     </div>
 
+    <div class="navbar-menu">
+
+
+      <a class="navbar-item " href={{ url_for("home") }}>
+        Home
+      </a>
+      <a class="navbar-item" href={{ url_for("home") }}>
+        About
+      </a>
+      <a class="navbar-item" href={{ url_for("home") }}>
+        Statistics
+      </a>
+      <a class="navbar-item" href={{ url_for("home") }}>
+        Report an Issue
+      </a>
+      {% if current_user.is_authenticated %}
+      <a class="navbar-item" href={{ url_for("logout") }}>
+        Logout
+      </a>
+      <a class="navbar-item" href={{ url_for("account") }}>
+        Account
+      </a>
+      {% else %}
+      <a class="navbar-item" href={{ url_for("login") }}>
+        Login
+      </a>
+      <a class="navbar-item" href={{ url_for("register") }}>
+        Register
+      </a>
+      {% endif %}
+
+  </div>
   </nav>
 
 
-
-
-  <section class="hero is-dark is-fullheight">
+  <section class="hero is-fullheight">
   <div class="hero-body">
   <div class='container'>
 
