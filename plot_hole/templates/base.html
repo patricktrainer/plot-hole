@@ -6,126 +6,106 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Plot Potholes - PlotHole</title>
 
-  <link rel="stylesheet" href={{ url_for('static',filename='node_modules/bulma-start/css/main.css') }}>
-  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <link rel="stylesheet" href="static/css/mystyles.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet' />
+
   <style>
-  /* background */
-  .hero {
-  	background: url("static/nola_streets_bw.png") center / cover;
-  }
-</style>
+    /* background */
+    .hero {
+      background: url("static/nola_streets_bw.png") center / cover;
+    }
+  </style>
+
 
 </head>
 
+
+
 <body>
-  <nav class="navbar is-black is-spaced" role="navigation" aria-label="main navigation">
+
+  <nav class="navbar">
     <div class="navbar-brand">
-      <a class="navbar-item has-text-white " href={{ url_for("home") }}>
-        P l o t H o l e
-      </a>
-    </div>
-
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
+    <a class="navbar-item" href={{ url_for("home") }}>
+      P l o t H o l e
     </a>
-
-    <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item has-text-grey-light" href={{ url_for("home") }}>
-          Home
-        </a>
-
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link has-text-grey-light">
-            More
-          </a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href={{ url_for("home") }}>
-              About
-            </a>
-            <a class="navbar-item" href={{ url_for("home") }}>
-              Statistics
-            </a>
-            <a class="navbar-item" href={{ url_for("home") }}>
-              Report an Issue
-            </a>
-            <hr class="navbar-divider">
-            {% if current_user.is_authenticated %}
-            <a class="navbar-item" href={{ url_for("logout") }}>
-              Logout
-            </a>
-            {% else %}
-            <a class="navbar-item" href={{ url_for("register") }}>
-              Register
-            </a>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-
-
-
-      <div class="navbar-end">
-        <div class="navbar-item">
-
-          <div class="buttons">
-        {% if current_user.is_authenticated %}
-            <a class="button is-light is-outlined is-rounded" href={{ url_for("map") }}>
-              Plot!
-            </a>
-            <a class="button is-warning is-outlined is-rounded" href={{ url_for("account") }}>
-              Account
-            </a>
-            {% else %}
-            <a class="button is-light is-outlined is-rounded" href={{ url_for("login") }}>
-              Login
-            </a>
-            <a class="button is-primary is-outlined is-rounded" href={{ url_for("register") }}>
-              Register
-            </a>
-            {% endif %}
-          </div>
-        </div>
-      </div>
     </div>
+
+    <div class="navbar-burger" onclick="document.querySelector('.navbar-burger').classList.toggle('is-active');
+    document.querySelector('.navbar-menu').classList.toggle('is-active');">
+    <span></span>
+    <span></span>
+    <span></span>
+    </div>
+
+    <div class="navbar-menu">
+
+
+      <a class="navbar-item " href={{ url_for("home") }}>
+        Home
+      </a>
+      <a class="navbar-item" href={{ url_for("home") }}>
+        About
+      </a>
+      <a class="navbar-item" href={{ url_for("home") }}>
+        Statistics
+      </a>
+      <a class="navbar-item" href={{ url_for("home") }}>
+        Report an Issue
+      </a>
+      {% if current_user.is_authenticated %}
+      <a class="navbar-item" href={{ url_for("logout") }}>
+        Logout
+      </a>
+      <a class="navbar-item" href={{ url_for("account") }}>
+        Account
+      </a>
+      {% else %}
+      <a class="navbar-item" href={{ url_for("login") }}>
+        Login
+      </a>
+      <a class="navbar-item" href={{ url_for("register") }}>
+        Register
+      </a>
+      {% endif %}
+
+  </div>
   </nav>
 
 
-  <section class="hero is-dark is-fullheight-with-navbar">
-    <div class="hero-body">
-      <div class='container'>
+  <section class="hero is-fullheight">
+  <div class="hero-body">
+  <div class='container'>
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        {% for category, message in messages %}
-        <div class="notification is-primary has-text-centered">
-          {{ message }}
-        </div>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
-
-        {% block content %}
-        {% endblock %}
-
-        {% block map %}
-        {% endblock %}
-
-      </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="notification is-primary has-text-centered">
+      {{ message }}
     </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
+
+    {% block map %}
+    {% endblock %}
+
+  </div>
+  </div>
   </section>
 </body>
+
 <footer class="footer has-background-light">
   <div class="content has-text-centered has-text-grey">
-    <p>
-      <strong>PlotHole</strong> by Patrick Trainer.
-    </p>
+  <p>
+  <strong>PlotHole</strong> by Patrick Trainer.
+  </p>
   </div>
 </footer>
 
