@@ -28,3 +28,9 @@ class LoginForm(FlaskForm):
     password = PasswordField("password", validators=[DataRequired()])
     # remember = BooleanField('remember')
     submit = SubmitField()
+
+
+class PlotForm(FlaskForm):
+    lat = StringField("Lat", validators=[DataRequired()])
+    long = StringField("Long", validators=[DataRequired()])
+    submit = SubmitField("Plot")

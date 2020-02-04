@@ -14,18 +14,18 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default="default.jpg")
     password = db.Column(db.String(60), nullable=False)
-    posts = db.relationship("Post", backref="author", lazy=True)
+    plots = db.relationship("Plot", backref="author", lazy=True)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
 
-class Post(db.Model):
+class Plot(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(120), nullable=False)
+    lat = db.Column(db.Float, nullable=False)
+    long = db.Column(db.Float, nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     def __repr__(self):
-        return f"User('{self.title}', '{self.date_posted}')"
+        return f"User('{self.lat}', '{self.long}', '{self.date_posted}')"

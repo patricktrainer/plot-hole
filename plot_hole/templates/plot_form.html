@@ -1,0 +1,38 @@
+
+
+<div class="columns is-mobile is-centered">
+  <div class="column is-half">
+    <form method="POST" action="">
+      {{ form.hidden_tag() }}
+      <div class="field">
+
+        <p class="control has-icons-left has-icons-right">
+          {{ form.lat(class="input", placeholder="Lat") }}
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </p>
+
+      </div>
+
+      <div class="field">
+        <p class="control has-icons-left">
+          {{ form.long(class="input", placeholder="Long") }}
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+      </div>
+
+      <div class="field">
+        <p class="control">
+          {{ form.submit(class="button is-primary is-outlined is-rounded")}}
+          </button>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

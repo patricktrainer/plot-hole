@@ -1,19 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request
 from plot_hole import app, db, bcrypt
-from plot_hole.forms import RegistrationForm, LoginForm
-from plot_hole.models import User
+from plot_hole.forms import RegistrationForm, LoginForm, PlotForm
+from plot_hole.models import User, Plot
 from flask_login import login_user, current_user, logout_user, login_required
-
-plots = [
-    {
-        "-90.7314": "89.6431",
-        "-90.6754": "89.7134",
-        "-90.1234": "89.9873",
-        "-90.5432": "89.5342",
-        "-90.1625": "89.0987",
-        "-90.1875": "89.7498",
-    }
-]
 
 
 @app.route("/", methods=("GET", "POST"))
@@ -21,14 +10,17 @@ def home():
     return render_template("home.html")
 
 
-@app.route("/map")
+@app.route("/map", methods=("GET", "POST"))
 def map():
-    return render_template("map.html")
-
-
-@app.route("/plot")
-def plot():
-    return render_template("plots.html", plots=plots)
+    form = PlotForm()
+    plots = Plot.query.all()
+    if form.validate_on_submit():
+        plot = Plot(lat=form.lat.data, long=form.long.data, author=current_user)
+        db.session.add(plot)
+        db.session.commit()
+        flash("Plotted!", "is-primary")
+        return redirect(url_for("map"))
+    return render_template("map.html", plots=plots, form=form)
 
 
 @app.route("/register", methods=("GET", "POST"))
@@ -79,3 +71,16 @@ def logout():
 @login_required
 def account():
     return render_template("account.html", title="Account")
+
+
+@app.route("/plots", methods=("GET", "POST"))
+@login_required
+def plots():
+    form = PlotForm()
+    if form.validate_on_submit():
+        plot = Plot(lat=form.lat.data, long=form.long.data, author=current_user)
+        db.session.add(plot)
+        db.session.commit()
+        flash("Posted!", "is-primary")
+        return redirect(url_for("home"))
+    return render_template("plot_form.html", plots=plots, form=form)
