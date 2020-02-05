@@ -14,19 +14,14 @@
     </div>
 
     <div class="navbar-menu">
-      <a class="navbar-item " href={{ url_for("home") }}>
-        Home
+      <a class="navbar-item" href={{ url_for("map") }}>
+        Map
       </a>
       <a class="navbar-item" href={{ url_for("home") }}>
         Stats
       </a>
-      <a class="navbar-item" href={{ url_for("map") }}>
-        Map
-      </a>
       {% if current_user.is_authenticated %}
-      <a class="navbar-item" href={{ url_for("logout") }}>
-        Logout
-      </a>
+
       <a class="navbar-item" href={{ url_for("account") }}>
         Account
       </a>

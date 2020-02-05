@@ -4,17 +4,18 @@
 
 <div class="container">
   <div class="columns">
-
+    <div class="box">
     <aside class="menu">
 
       <p class="menu-label has-text-grey-lighter">
         Account
       </p>
-      <ul class="menu-list has-text-grey-lighter">
-        <li><a>Update Info</a></li>
-        <li><a>Logout </a></li>
+      <ul class="menu-list ">
+        <li><a class="button is-primary is-light">Update Info</a></li>
+        <li><a class="button is-primary is-light is-small" href={{ url_for("logout") }}>Logout </a></li>
       </ul>
     </aside>
+  </div>
 
   <div class="column">
     <div class="hero-body">
