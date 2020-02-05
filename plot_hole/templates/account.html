@@ -1,33 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<style>
-.box {
-        /* width: 100%;
-        height: 100%; */
-
-        /* background-color: transparent */
-}
-</style>
-
 
 <div class="container">
   <div class="columns">
 
-  <div class="column is-3 ">
-    <aside class="menu is-hidden-mobile">
-    <p class="menu-label has-text-grey-lighter">
-      General
-    </p>
-    <ul class="menu-list has-text-grey-lighter">
-    <li><a class="is-active">Dashboard</a></li>
-    <li><a>Customers</a></li>
-    <li><a>Other</a></li>
-    </ul>
-    </aside>
-  </div>
+    <aside class="menu">
 
-  <div class="column is-9">
+      <p class="menu-label has-text-grey-lighter">
+        Account
+      </p>
+      <ul class="menu-list has-text-grey-lighter">
+        <li><a>Update Info</a></li>
+        <li><a>Logout </a></li>
+      </ul>
+    </aside>
+
+  <div class="column">
     <div class="hero-body">
     <div class="container">
     <h1 class="title has-text-grey-lighter">
@@ -38,113 +27,32 @@
     </h2>
     </div>
     </div>
-
+  </div>
 
     <section class="info-tiles ">
       <div class="tile is-ancestor has-text-centered">
         <div class="tile is-parent">
         <article class="tile is-child box ">
-        <p class="title has-text-grey-lighter">439k</p>
-        <p class="subtitle has-text-grey-lighter">Users</p>
+        <p class="title has-text-grey-lighter">{{ count }}</p>
+        <p class="subtitle has-text-grey-lighter">Total Potholes</p>
         </article>
         </div>
 
 
         <div class="tile is-parent">
         <article class="tile is-child box">
-        <p class="title has-text-grey-lighter">59k</p>
-        <p class="subtitle has-text-grey-lighter">Products</p>
-        </article>
-        </div>
-
-        <div class="tile is-parent">
-        <article class="tile is-child box">
-        <p class="title has-text-grey-lighter">3.4k</p>
-        <p class="subtitle has-text-grey-lighter">Open Orders</p>
-        </article>
-        </div>
-
-        <div class="tile is-parent">
-        <article class="tile is-child box">
-        <p class="title has-text-grey-lighter">19</p>
-        <p class="subtitle has-text-grey-lighter">Exceptions</p>
+        <p class="title has-text-grey-lighter">{{ count }}</p>
+        <p class="subtitle has-text-grey-lighter">Plotted by You</p>
         </article>
         </div>
       </div>
     </section>
 
-    <div class="columns">
-      <div class="column">
-      <div class="card events-card">
-        <header class="card-header">
-          <p class="card-header-title">
-            Events
-          </p>
-          <a href="#" class="card-header-icon" aria-label="more options">
-          <span class="icon">
-          <i class="fa fa-angle-down" aria-hidden="true"></i>
-          </span>
-          </a>
-        </header>
-      <div class="content">
-      <div class="table-container">
-      <table class="table is-hoverable">
-        <tbody>
-        <tr>
-            <td width="5%"></td>
-            <td>Lorum ipsum dolem aire</td>
-            <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-        </tr>
-        <tr>
-            <td width="5%"></td>
-            <td>Lorum ipsum dolem aire</td>
-            <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-        </tr>
-        <tr>
-            <td width="5%"></td>
-            <td>Lorum ipsum dolem aire</td>
-            <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-        </tr>
-        <tr>
-            <td width="5%"></td>
-            <td>Lorum ipsum dolem aire</td>
-            <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-        </tr>
-        <tr>
-            <td width="5%"></td>
-            <td>Lorum ipsum dolem aire</td>
-            <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-        </tr>
-        <tr>
-            <td width="5%"></td>
-            <td>Lorum ipsum dolem aire</td>
-            <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-        </tr>
-        <tr>
-            <td width="5%"></td>
-            <td>Lorum ipsum dolem aire</td>
-            <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-        </tr>
-        <tr>
-            <td width="5%"></td>
-            <td>Lorum ipsum dolem aire</td>
-            <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-        </tr>
-        <tr>
-            <td width="5%"></td>
-            <td>Lorum ipsum dolem aire</td>
-            <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-        </tr>
 
-      </tbody>
-      </table>
-      <footer class="card-footer">
-        <a href="#" class="card-footer-item">View All</a>
-      </footer>
       </div>
       </div>
       </div>
-      </div>
+
 
 
 <!--

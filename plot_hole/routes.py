@@ -76,7 +76,8 @@ def logout():
 @app.route("/account")
 @login_required
 def account():
-    return render_template("account.html", title="Account")
+    count = Plot.query.count()
+    return render_template("account.html", title="Account", count=count)
 
 
 @app.route("/plots", methods=("GET", "POST"))
