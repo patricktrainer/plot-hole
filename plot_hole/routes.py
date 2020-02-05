@@ -3,6 +3,7 @@ from plot_hole import app, db, bcrypt
 from plot_hole.forms import RegistrationForm, LoginForm, PlotForm
 from plot_hole.models import User, Plot
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_googlemaps import Map, icons
 
 
 @app.route("/", methods=("GET", "POST"))
@@ -91,3 +92,26 @@ def plots():
         flash("Posted!", "is-primary")
         return redirect(url_for("home"))
     return render_template("plot_form.html", plots=plots, form=form)
+
+
+@app.route("/google-map")
+def mapview():
+
+    locations = Plot.query.all()  # long list of coordinates
+    # map = Map(
+    #     identifier="map",
+    #     lat=locations[0].long,
+    #     lng=locations[0].lat,
+    #     markers=[(loc.long, loc.lat) for loc in locations],
+    #     infobox="hello",
+    #     fit_markers_to_bounds=True,
+    # )
+
+    map = Map(
+        identifier="map",
+        lat=locations[0].long,
+        lng=locations[0].lat,
+        style="height:600px;width:800px;",
+        markers={icons.dots.blue: [(loc.long, loc.lat) for loc in locations]},
+    )
+    return render_template("google-map.html", map=map)

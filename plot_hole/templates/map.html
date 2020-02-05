@@ -9,9 +9,17 @@
 
 <div class="level">
   <div class="level-item">
-  <div id='map' style='width: 820px; height: 640px;'></div>
+  <div id='map' style='width: 820px;
+       height: 640px;'>
+  </div>
+
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoianNvbWEiLCJhIjoibFJmYl9JWSJ9.AUm8d76cbOvVEn2mMeG_ZA';
+
+    var pothole = [
+      [-90.08, 29.95]
+    ]
+
     // Set bounds to New Olreans, LA
     var bounds = [
       [-90.301466, 29.835254], // Southwest coordinates

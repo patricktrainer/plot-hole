@@ -4,6 +4,7 @@
 
 <div class="container">
   <div class="columns">
+
     <div class="box">
     <aside class="menu">
 
@@ -11,48 +12,50 @@
         Account
       </p>
       <ul class="menu-list ">
+
         <li><a class="button is-primary is-light">Update Info</a></li>
-        <li><a class="button is-primary is-light is-small" href={{ url_for("logout") }}>Logout </a></li>
+        <br>
+        <li><a class="button is-primary is-light
+          " href={{ url_for("logout") }}>Logout </a></li>
       </ul>
     </aside>
-  </div>
-
-  <div class="column">
-    <div class="hero-body">
-    <div class="container">
-    <h1 class="title has-text-grey-lighter">
-      Hello, {{ current_user.username }}!
-    </h1>
-    <h2 class="subtitle has-text-grey-lighter">
-      I hope you are having a great day!
-    </h2>
     </div>
-    </div>
-  </div>
 
-    <section class="info-tiles ">
-      <div class="tile is-ancestor has-text-centered">
-        <div class="tile is-parent">
-        <article class="tile is-child box ">
-        <p class="title has-text-grey-lighter">{{ count }}</p>
-        <p class="subtitle has-text-grey-lighter">Total Potholes</p>
-        </article>
-        </div>
+    <div class="column">
 
-
-        <div class="tile is-parent">
-        <article class="tile is-child box">
-        <p class="title has-text-grey-lighter">{{ count }}</p>
-        <p class="subtitle has-text-grey-lighter">Plotted by You</p>
-        </article>
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title has-text-grey-lighter">
+            Hello, {{ current_user.username }}!
+          </h1>
+          <h2 class="subtitle has-text-grey-lighter">
+            I hope you are having a great day!
+          </h2>
         </div>
       </div>
-    </section>
 
+      <section class="info-tiles ">
+        <div class="tile is-ancestor has-text-centered">
+          <div class="tile is-parent">
+            <article class="tile is-child box ">
+              <p class="title has-text-grey-lighter">{{ count }}</p>
+              <p class="subtitle has-text-grey-lighter">Total Potholes</p>
+            </article>
+          </div>
+          <div class="tile is-parent">
+            <article class="tile is-child box">
+              <p class="title has-text-grey-lighter">{{ count }}</p>
+              <p class="subtitle has-text-grey-lighter">Plotted by You</p>
+            </article>
+          </div>
+        </div>
+      </section>
 
-      </div>
-      </div>
-      </div>
+    </div>
+
+  </div>
+</div>
+
 
 
 
