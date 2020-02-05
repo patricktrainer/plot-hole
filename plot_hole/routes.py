@@ -94,18 +94,9 @@ def plots():
     return render_template("plot_form.html", plots=plots, form=form)
 
 
-@app.route("/google-map")
+@app.route("/google-map", methods=("GET", "POST"))
 def mapview():
-
     locations = Plot.query.all()  # long list of coordinates
-    # map = Map(
-    #     identifier="map",
-    #     lat=locations[0].long,
-    #     lng=locations[0].lat,
-    #     markers=[(loc.long, loc.lat) for loc in locations],
-    #     infobox="hello",
-    #     fit_markers_to_bounds=True,
-    # )
 
     map = Map(
         identifier="map",
@@ -113,5 +104,7 @@ def mapview():
         lng=locations[0].lat,
         style="height:600px;width:800px;",
         markers={icons.dots.blue: [(loc.long, loc.lat) for loc in locations]},
+        scale_control=False,
     )
+
     return render_template("google-map.html", map=map)
