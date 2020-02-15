@@ -34,10 +34,14 @@
       maxBounds: bounds // Sets bounds as max
     });
 
+      // create the popup
+    var popup = new mapboxgl.Popup({ offset: 25 }).setText(
+      );
+
     var marker = new mapboxgl.Marker()
       .setLngLat([-90.08, 29.95])
       .setDraggable(true)
-      .getLngLat()
+      .setPopup(popup) // sets a popup on this marker
       .addTo(map);
 
 
