@@ -34,18 +34,14 @@
       maxBounds: bounds // Sets bounds as max
     });
 
-    map.on('load', function() {
-      var geojsonData = {
-        "type": "FeatureCollection",
-        "features": [{
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [0, 0]
-          }
-        }]
-      };
+    var marker = new mapboxgl.Marker()
+      .setLngLat([-90.08, 29.95])
+      .setDraggable(true)
+      .getLngLat()
+      .addTo(map);
 
+
+    map.on('load', function() {
       // Add geocoder input box to map
       map.addControl(new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
