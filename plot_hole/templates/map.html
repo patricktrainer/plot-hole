@@ -34,15 +34,11 @@
     });
 
       // create the popup
-    var popup = new mapboxgl.Popup({ offset: 25 }).setText(
+    var popup = new mapboxgl.Popup().setText(
       "pothole");
 
 
-      marker.forEach(function(marker) {
-      new mapboxgl.Marker()
-        .setLngLat(marker)
-        .addTo(map)
-    });
+
 
 
     // var marker = new mapboxgl.Marker()
@@ -68,6 +64,15 @@
       }));
 
     })
+
+    marker.forEach(function(marker) {
+      new mapboxgl.Marker()
+        .setLngLat(marker)
+        .setPopup(popup) // sets a popup on this marker
+        .addTo(map)
+    });
+
+
   </script>
   </div>
 </div>
