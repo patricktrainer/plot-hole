@@ -15,13 +15,14 @@ def home():
 def map():
     form = PlotForm()
     plots = Plot.query.all()
+    markers = [[plot.lat, plot.long] for plot in plots]
     if form.validate_on_submit():
         plot = Plot(lat=form.lat.data, long=form.long.data, author=current_user)
         db.session.add(plot)
         db.session.commit()
         flash("Plotted!", "is-primary")
         return redirect(url_for("map"))
-    return render_template("map.html", plots=plots, form=form)
+    return render_template("map.html", markers=markers, form=form)
 
 
 @app.route("/register", methods=("GET", "POST"))
@@ -92,19 +93,3 @@ def plots():
         flash("Posted!", "is-primary")
         return redirect(url_for("home"))
     return render_template("plot_form.html", plots=plots, form=form)
-
-
-@app.route("/google-map", methods=("GET", "POST"))
-def mapview():
-    locations = Plot.query.all()  # long list of coordinates
-
-    map = Map(
-        identifier="map",
-        lat=locations[0].long,
-        lng=locations[0].lat,
-        style="height:600px;width:800px;",
-        markers={icons.dots.blue: [(loc.long, loc.lat) for loc in locations]},
-        scale_control=False,
-    )
-
-    return render_template("google-map.html", map=map)

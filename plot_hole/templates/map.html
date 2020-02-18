@@ -13,12 +13,11 @@
        height: 640px;'>
   </div>
 
+
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoianNvbWEiLCJhIjoibFJmYl9JWSJ9.AUm8d76cbOvVEn2mMeG_ZA';
 
-    var pothole = [
-      [-90.08, 29.95]
-    ]
+    var marker = {{ markers }}
 
     // Set bounds to New Olreans, LA
     var bounds = [
@@ -29,7 +28,7 @@
     var map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/dark-v10',
-      center: [-90.08, 29.95],
+      center: [-90.11, 29.95],
       zoom: 12,
       maxBounds: bounds // Sets bounds as max
     });
@@ -38,11 +37,19 @@
     var popup = new mapboxgl.Popup({ offset: 25 }).setText(
       "pothole");
 
-    var marker = new mapboxgl.Marker()
-      .setLngLat([-90.08, 29.95])
-      .setDraggable(true)
-      .setPopup(popup) // sets a popup on this marker
-      .addTo(map);
+
+      marker.forEach(function(marker) {
+      new mapboxgl.Marker()
+        .setLngLat(marker)
+        .addTo(map)
+    });
+
+
+    // var marker = new mapboxgl.Marker()
+    //   .setLngLat(pothole)
+    //   .setDraggable(true)
+    //   .setPopup(popup) // sets a popup on this marker
+    //   .addTo(map);
 
 
     map.on('load', function() {
@@ -65,4 +72,8 @@
   </div>
 </div>
 {% include "includes/plot_form.html" %}
+
+
+
+
 {% endblock %}
