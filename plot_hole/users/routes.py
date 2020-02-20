@@ -1,34 +1,16 @@
-from flask import render_template, url_for, flash, redirect, request
-from plot_hole import app, db, bcrypt
-from plot_hole.forms import RegistrationForm, LoginForm, PlotForm
-from plot_hole.models import User, Plot
+from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
-from flask_googlemaps import Map, icons
+from plot_hole import db, bcrypt
+from plot_hole.users.forms import RegistrationForm, LoginForm
+from plot_hole.models import User, Plot
+
+users = Blueprint("users", __name__)
 
 
-@app.route("/", methods=("GET", "POST"))
-def home():
-    return render_template("home.html")
-
-
-@app.route("/map", methods=("GET", "POST"))
-def map():
-    form = PlotForm()
-    plots = Plot.query.all()
-    markers = [[plot.lat, plot.long] for plot in plots]
-    if form.validate_on_submit():
-        plot = Plot(lat=form.lat.data, long=form.long.data, author=current_user)
-        db.session.add(plot)
-        db.session.commit()
-        flash("Plotted!", "is-primary")
-        return redirect(url_for("map"))
-    return render_template("map.html", markers=markers, form=form)
-
-
-@app.route("/register", methods=("GET", "POST"))
+@users.route("/register", methods=("GET", "POST"))
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for("home"))
+        return redirect(url_for("main.home"))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(
@@ -44,14 +26,14 @@ def register():
         db.session.commit()
 
         flash(f"Account created for {form.email.data}!")
-        return redirect(url_for("login"))
+        return redirect(url_for("users.login"))
     return render_template("register.html", title="Register", form=form)
 
 
-@app.route("/login", methods=("GET", "POST"))
+@users.route("/login", methods=("GET", "POST"))
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for("home"))
+        return redirect(url_for("main.home"))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -62,27 +44,23 @@ def login():
             next_page = request.args.get("next")
             flash("You have been logged in!")
             return (
-                redirect(next_page) if next_page else redirect(url_for("map"))
+                redirect(next_page)
+                if next_page
+                else redirect(url_for("posts.map"))
             )
         else:
             flash("Login Unsuccessful - Check Email or Password")
     return render_template("login.html", title="Login", form=form)
 
 
-@app.route("/logout")
+@users.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for("home"))
+    return redirect(url_for("main.home"))
 
 
-@app.route("/account")
+@users.route("/account")
 @login_required
 def account():
     count = Plot.query.count()
     return render_template("account.html", title="Account", count=count)
-
-
-@app.route("/plot/<id>")
-def plot(id):
-    # plot = Plot.query.get(id)
-    return render_template("plot.html")
