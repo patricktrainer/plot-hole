@@ -1,7 +1,7 @@
 <nav class="navbar">
 
   <div class="navbar-brand">
-    <a class="navbar-item" href={{ url_for("home") }}>
+    <a class="navbar-item" href={{ url_for("main.home") }}>
       P l o t H o l e
     </a>
   </div>
@@ -14,22 +14,22 @@
     </div>
 
     <div class="navbar-menu">
-      <a class="navbar-item" href={{ url_for("map") }}>
+      <a class="navbar-item" href={{ url_for("posts.map") }}>
         Map
       </a>
-      <a class="navbar-item" href={{ url_for("home") }}>
+      <a class="navbar-item" href={{ url_for("main.home") }}>
         Stats
       </a>
       {% if current_user.is_authenticated %}
 
-      <a class="navbar-item" href={{ url_for("account") }}>
+      <a class="navbar-item" href={{ url_for("users.account") }}>
         Account
       </a>
       {% else %}
-      <a class="navbar-item" href={{ url_for("login") }}>
+      <a class="navbar-item" href={{ url_for("users.login") }}>
         Login
       </a>
-      <a class="navbar-item" href={{ url_for("register") }}>
+      <a class="navbar-item" href={{ url_for("users.register") }}>
         Register
       </a>
       {% endif %}
