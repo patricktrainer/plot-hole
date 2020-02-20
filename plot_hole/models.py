@@ -30,4 +30,4 @@ class Plot(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     def __repr__(self):
-        return f"User('{self.lat}', '{self.long}', '{self.date_posted}')"
+        return f"{self.lat}, {self.long}"

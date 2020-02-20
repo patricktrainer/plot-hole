@@ -63,4 +63,8 @@ def logout():
 @login_required
 def account():
     count = Plot.query.count()
-    return render_template("account.html", title="Account", count=count)
+    query = Plot.query.join(User).values(Plot.lat, Plot.long,)
+    markers = [q for q in query]
+    return render_template(
+        "account.html", title="Account", count=count, markers=markers
+    )

@@ -17,8 +17,6 @@
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoianNvbWEiLCJhIjoibFJmYl9JWSJ9.AUm8d76cbOvVEn2mMeG_ZA';
 
-    var marker = {{ markers }}
-
     // Set bounds to New Olreans, LA
     var bounds = [
       [-90.301466, 29.835254], // Southwest coordinates
@@ -53,14 +51,6 @@
       }));
 
     })
-
-    marker.forEach(function(marker) {
-      new mapboxgl.Marker()
-        .setLngLat(marker)
-        .setPopup(popup) // sets a popup on this marker
-        .addTo(map)
-    });
-
 
   </script>
   </div>
