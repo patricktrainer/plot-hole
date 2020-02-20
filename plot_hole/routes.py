@@ -82,14 +82,7 @@ def account():
     return render_template("account.html", title="Account", count=count)
 
 
-@app.route("/plots", methods=("GET", "POST"))
-@login_required
-def plots():
-    form = PlotForm()
-    if form.validate_on_submit():
-        plot = Plot(lat=form.lat.data, long=form.long.data, author=current_user)
-        db.session.add(plot)
-        db.session.commit()
-        flash("Posted!", "is-primary")
-        return redirect(url_for("home"))
-    return render_template("plot_form.html", plots=plots, form=form)
+@app.route("/plot/<id>")
+def plot(id):
+    # plot = Plot.query.get(id)
+    return render_template("plot.html")
