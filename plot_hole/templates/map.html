@@ -35,6 +35,13 @@
     var popup = new mapboxgl.Popup().setText(
       "pothole");
 
+    var marker = new mapboxgl.Marker()
+      .setLngLat([-90.08, 29.95])
+      .setDraggable(true)
+      .setPopup(popup) // sets a popup on this marker
+      .addTo(map)
+
+
     map.on('load', function() {
       // Add geocoder input box to map
       map.addControl(new MapboxGeocoder({
