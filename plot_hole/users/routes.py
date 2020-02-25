@@ -46,7 +46,7 @@ def login():
             return (
                 redirect(next_page)
                 if next_page
-                else redirect(url_for("posts.map"))
+                else redirect(url_for("users.account"))
             )
         else:
             flash("Login Unsuccessful - Check Email or Password")
