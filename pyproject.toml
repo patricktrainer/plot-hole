@@ -12,6 +12,7 @@ flask-sqlalchemy = "^2.4.1"
 flask-bcrypt = "^0.7.1"
 flask-login = "^0.4.1"
 flask-googlemaps = "^0.2.6"
+flask-mongoengine = "^0.9.5"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
