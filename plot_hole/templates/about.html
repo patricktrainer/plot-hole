@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="box">
+    <div class="content has-text-white">
+      <h1>New Orleans has a pothole problem</h1>
+        <p>
+          New Orleans has a pothole problem that our government
+          simply cant keep up with. What is additionally frustrating is the lack
+          of a simple way to document where our city needs some help.
+        </p>
+        <p>
+          Plothole aims to make it simple for residents
+          to report where there are issues.
+        </p>
+
+      <h2>How New Orleans currently does it</h2>
+        <p>
+          Per the cities [website](https://nola.gov/dpw/potholes/),
+          you can call 311 Monday through Friday during work hours and
+          speak to a representative and tell them where the pothole is.
+          You can also go [here](https://nola311.org/) and fill out a
+          'request form' and describe the location of the pothole.
+        </p>
+        <p>
+          There are three huge flaws with reporting in this way.
+        </p>
+        <ol type="1">
+          <li>Free-text field forms lack structure and make it difficult if not impossible to aggregate data</li>
+          <li>The city provides no way of reporting multiple potholes at once.</li>
+          <li>There is no signal back to the resident that their concern will be actually noticed.</li>
+        </ol>
+
+      <h2>How Plothole does it</h2>
+        <p>
+          Plothole makes plotting potholes simple **and** accurate by
+          providing a detailed map of New Orleans with a draggable marker
+          that pinpoints the exact location of the pothole.
+          Alongside location data Plothole can also collect
+          information about the pothole such as:
+        </p>
+        <ol>
+          <li>approximate size</li>
+          <li>approximate depth</li>
+          <li>time of first appearance</li>
+          <li>current status (filled/not-filled)</li>
+        </ol>
+        <p>
+          Plothole will also allow residents to upload photos of as well as
+          subscribe to potholes around the city.
+        </p>
+    </div>
+  </div>
+</div>
+{% endblock %}
