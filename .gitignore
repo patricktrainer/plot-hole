@@ -2,7 +2,7 @@
 .idea/
 
 # Static Files
-static/
+plot_hole/static/node_modules/
 
 
 # Byte-compiled / optimized / DLL files
