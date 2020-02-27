@@ -11,7 +11,7 @@ def load_user(id):
 class User(UserMixin, db.Document):
     email = db.EmailField(unique=True)
     username = db.StringField(max_length=50)
-    password = db.StringField(max_length=50)
+    password = db.StringField()
     meta = {"allow_inheritance": True}
 
 
