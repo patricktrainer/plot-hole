@@ -16,5 +16,5 @@ class User(UserMixin, db.Document):
 
 class Plot(db.Document):
     plot = db.PointField()
-    plot_date = db.DateTimeField()
+    plot_date = db.DateTimeField(default=datetime.utcnow)
     author = db.ReferenceField(document_type=User)
