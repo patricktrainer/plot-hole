@@ -4,30 +4,17 @@ from flask_login import UserMixin
 
 
 @login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+def load_user(id):
+    return User.objects.get(id=id)
 
 
-class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    image_file = db.Column(db.String(20), nullable=False, default="default.jpg")
-    password = db.Column(db.String(60), nullable=False)
-    plots = db.relationship("Plot", backref="author", lazy=True)
-
-    def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+class User(UserMixin, db.Document):
+    email = db.EmailField(required=True, unique=True)
+    username = db.StringField(max_length=50, required=True)
+    password = db.StringField(required=True)
 
 
-class Plot(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    lat = db.Column(db.Float, nullable=False)
-    long = db.Column(db.Float, nullable=False)
-    date_posted = db.Column(
-        db.DateTime, nullable=False, default=datetime.utcnow
-    )
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-
-    def __repr__(self):
-        return f"{self.lat}, {self.long}"
+class Plot(db.Document):
+    plot = db.PointField()
+    plot_date = db.DateTimeField()
+    author = db.ReferenceField(User)
