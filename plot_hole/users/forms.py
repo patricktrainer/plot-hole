@@ -18,15 +18,11 @@ class RegistrationForm(FlaskForm):
     )
     submit = SubmitField()
 
-    def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
-        if user:
-            raise ValidationError("User already exists")
-
-    def validate_email(self, email):
-        email = User.query.filter_by(email=email.data).first()
-        if email:
-            raise ValidationError("User already exists")
+    # def validate_email(self, email):
+    #     email = User.objects(email=email)
+    #     if email:
+    #         raise ValidationError("User already exists")
+    #
 
 
 class LoginForm(FlaskForm):

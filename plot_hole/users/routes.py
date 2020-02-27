@@ -22,8 +22,7 @@ def register():
             email=form.email.data,
             password=hashed_password,
         )
-        db.session.add(user)
-        db.session.commit()
+        user.save()
 
         flash(f"Account created for {form.email.data}!")
         return redirect(url_for("users.login"))
@@ -36,7 +35,7 @@ def login():
         return redirect(url_for("main.home"))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.objects(email=form.email.data).first()
         if user and bcrypt.check_password_hash(
             user.password, form.password.data
         ):
@@ -62,9 +61,5 @@ def logout():
 @users.route("/account")
 @login_required
 def account():
-    count = Plot.query.count()
-    query = Plot.query.join(User).values(Plot.lat, Plot.long,)
-    markers = [q for q in query]
-    return render_template(
-        "account.html", title="Account", count=count, markers=markers
-    )
+    count = Plot.objects(user=current_user.id).count()
+    return render_template("account.html", title="Account", count=count)
