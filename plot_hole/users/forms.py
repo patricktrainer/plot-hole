@@ -18,11 +18,10 @@ class RegistrationForm(FlaskForm):
     )
     submit = SubmitField()
 
-    # def validate_email(self, email):
-    #     email = User.objects(email=email)
-    #     if email:
-    #         raise ValidationError("User already exists")
-    #
+    def validate_email(self, email):
+        email = User.objects(email=email.data)
+        if email:
+            raise ValidationError("User already exists")
 
 
 class LoginForm(FlaskForm):
