@@ -35,7 +35,7 @@ def login():
         return redirect(url_for("main.home"))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.objects.get(email=form.email.data)
+        user = User.objects(email=form.email.data).first()
         if user and bcrypt.check_password_hash(
             user.password, form.password.data
         ):
@@ -61,7 +61,5 @@ def logout():
 @users.route("/account")
 @login_required
 def account():
-    count = Plot.objects.select_related()
-    # query = Plot.query.join(User).values(Plot.lat, Plot.long,)
-    # markers = [q for q in query]
+    count = Plot.objects(user=current_user.id).count()
     return render_template("account.html", title="Account", count=count)

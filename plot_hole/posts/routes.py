@@ -12,9 +12,7 @@ def map():
     form = PlotForm()
 
     if form.validate_on_submit():
-        plot = Plot(
-            plot=[form.lat.data, form.long.data], author=current_user.username
-        )
+        plot = Plot(plot=[form.lat.data, form.long.data], user=current_user.id)
         plot.save()
         flash("Plotted!", "is-primary")
         return redirect(url_for("posts.map"))
@@ -23,5 +21,5 @@ def map():
 
 @posts.route("/plot/<int:id>")
 def plot(id):
-    plot = Plot.query.get(id)
+    plot = Plot.objects(id=id).first()
     return render_template("plot.html", plot=plot)

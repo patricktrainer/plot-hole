@@ -5,16 +5,17 @@ from flask_login import UserMixin
 
 @login_manager.user_loader
 def load_user(id):
-    return User.objects.get(id=id)
+    return User.objects(id=id).first()
 
 
 class User(UserMixin, db.Document):
-    email = db.EmailField(required=True, unique=True)
-    username = db.StringField(max_length=50, required=True)
-    password = db.StringField(required=True)
+    email = db.EmailField(unique=True)
+    username = db.StringField(max_length=50)
+    password = db.StringField(max_length=50)
+    meta = {"allow_inheritance": True}
 
 
 class Plot(db.Document):
     plot = db.PointField()
     plot_date = db.DateTimeField(default=datetime.utcnow)
-    author = db.ReferenceField(document_type=User)
+    user = db.ReferenceField(User)
