@@ -23,3 +23,17 @@ def map():
 def plot(id):
     plot = Plot.objects(id=id).first()
     return render_template("plot.html", plot=plot)
+
+
+@posts.route("/plot_pothole")
+def plot_pothole():
+    longitude = request.args.get("longitude", type=float)
+    latitude = request.args.get("latitude", type=float)
+
+    if current_user.is_authenticated:
+        plot = Plot(plot=[longitude, latitude], user=current_user.id)
+        plot.save()
+        flash("Plotted!", "is-primary")
+        return redirect(url_for("posts.map"))
+    flash("You must be logged in to do that!", "is-warning")
+    return redirect(url_for("posts.map"))

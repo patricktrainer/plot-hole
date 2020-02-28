@@ -1,70 +1,41 @@
 {% extends "base.html" %}
-
 {% block content %}
-<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js'></script>
-<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css' type='text/css' />
-<!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
-<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+      crossorigin="">
+    </script>
 
 <div class="level">
   <div class="level-item">
-  <div id='map' style='width: 820px;
-       height: 640px;'>
-  </div>
+    <div id='map' style='width: 820px;
+         height: 640px;'>
+    </div>
 
+    <script>
+      var mymap = L.map('map').setView([29.95 ,-90.11], 12);
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          maxZoom: 18,
+          id: 'mapbox/dark-v10',
+          tileSize: 512,
+          zoomOffset: -1,
+          accessToken: 'pk.eyJ1IjoianNvbWEiLCJhIjoibFJmYl9JWSJ9.AUm8d76cbOvVEn2mMeG_ZA'
+      }).addTo(mymap);
 
-  <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoianNvbWEiLCJhIjoibFJmYl9JWSJ9.AUm8d76cbOvVEn2mMeG_ZA';
+      var popup = L.popup();
+      mymap.on('click', function(e){
+          var coord = e.latlng; // no need for toString()
+          var lat = coord.lat;
+          var lng = coord.lng;
+          var newMarker = L.marker(e.latlng, {draggable:'true'}).addTo(mymap)
+          .bindPopup('Plot a pothole <a href="{{ url_for('posts.plot_pothole') }}?latitude='+lat+'&longitude='+lng+'"> here</a>').openPopup();
+      });
+    </script>
 
-    // Set bounds to New Olreans, LA
-    var bounds = [
-      [-90.301466, 29.835254], // Southwest coordinates
-      [-89.898965, 30.064905] // Northeast coordinates
-    ];
-
-    var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/dark-v10',
-      center: [-90.11, 29.95],
-      zoom: 12,
-      maxBounds: bounds // Sets bounds as max
-    });
-
-      // create the popup
-    var popup = new mapboxgl.Popup().setText(
-      "pothole");
-
-    var marker = new mapboxgl.Marker()
-      .setLngLat([-90.08, 29.95])
-      .setDraggable(true)
-      .setPopup(popup) // sets a popup on this marker
-      .addTo(map)
-
-
-    map.on('load', function() {
-      // Add geocoder input box to map
-      map.addControl(new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl
-      }));
-
-      // Add geolocate control to the map.
-      map.addControl(new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true
-        },
-        trackUserLocation: true
-      }));
-
-    })
-
-  </script>
   </div>
 </div>
-{% include "includes/plot_form.html" %}
-
-
-
 
 {% endblock %}
