@@ -2,6 +2,8 @@
 
 {% block content %}
 <h1 class="title has-text-grey-lighter">
-   {{ plot }}
+  {% for p in plot %}
+   {{ p.plot }}
+  {% endfor %}
 </h1>
 {% endblock %}

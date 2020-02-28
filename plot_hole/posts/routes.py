@@ -19,9 +19,9 @@ def map():
     return render_template("map.html", form=form)
 
 
-@posts.route("/plot/<int:id>")
-def plot(id):
-    plot = Plot.objects(id=id).first()
+@posts.route("/api/get_plots")
+def get_plots():
+    plot = Plot.objects()
     return render_template("plot.html", plot=plot)
 
 
