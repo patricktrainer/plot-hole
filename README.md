@@ -7,7 +7,7 @@ Plothole aims to make it simple for residents to report where there are issues.
 
 ## How New Orleans currently does it
 
-Per the cities [website](https://nola.gov/dpw/potholes/), you can call 311 Monday through Friday during work hours
+Per the city's [website](https://nola.gov/dpw/potholes/), you can call 311 Monday through Friday during work hours
 and speak to a representative and tell them where the pothole is.  
 You can also go [here](https://nola311.org/) and fill out a 'request form' and describe the location of the pothole.
 
