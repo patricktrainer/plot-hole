@@ -62,4 +62,11 @@ def logout():
 @login_required
 def account():
     count = Plot.objects(user=current_user.id).count()
-    return render_template("account.html", title="Account", count=count)
+    plots = Plot.objects(user=current_user.id)
+
+    return render_template(
+        "account.html",
+        title="Account",
+        count=count,
+        plots=[plot for plot in plots],
+    )

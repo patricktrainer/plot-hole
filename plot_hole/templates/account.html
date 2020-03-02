@@ -2,106 +2,59 @@
 
 {% block content %}
 
-<div class="container">
+
   <div class="columns">
-
-    <div class="box">
-    <aside class="menu">
-
-      <p class="menu-label has-text-grey-lighter">
-        Account
-      </p>
-      <ul class="menu-list ">
-        <li><a class="button is-primary is-light
-          " href={{ url_for("users.logout") }}>Logout </a>
-        </li>
-      </ul>
-    </aside>
-    </div>
-
-    <div class="column">
-
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title has-text-grey-lighter">
-            Hello, {{ current_user.username }}!
-          </h1>
-          <h2 class="subtitle has-text-grey-lighter">
-            You have plotted {{ count }} potholes!
-          </h2>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
-
-
-<!--
-    <div class="column">
-      <div class="card">
-        <header class="card-header">
-        <p class="card-header-title">
-          Inventory Search
-        </p>
-        <a href="#" class="card-header-icon" aria-label="more options">
-        <span class="icon">
-        <i class="fa fa-angle-down" aria-hidden="true"></i>
-        </span>
+    <div class="column is-one-quarter">
+      <div class="container">
+        <h1 class="title has-text-grey-lighter">
+          Hello, {{ current_user.username }}!
+        </h1>
+        <h2 class="subtitle has-text-grey-lighter">
+          You have plotted {{ count }} potholes!
+        </h2>
+        <a class="button is-outlined is-light is-rounded is-small"
+                  href={{ url_for("users.logout") }}>Logout
         </a>
-        </header>
-
-        <div class="card-content">
-        <div class="content">
-        <div class="control has-icons-left has-icons-right">
-          <input class="input is-large" type="text" placeholder="">
-          <span class="icon is-medium is-left">
-          <i class="fa fa-search"></i>
-          </span>
-          <span class="icon is-medium is-right">
-          <i class="fa fa-check"></i>
-          </span>
-        </div>
-        </div>
-        </div>
       </div>
-
-      <div class="card">
-        <header class="card-header">
-        <p class="card-header-title">
-        User Search
-        </p>
-        <a href="#" class="card-header-icon" aria-label="more options">
-        <span class="icon">
-        <i class="fa fa-angle-down" aria-hidden="true"></i>
-        </span>
-        </a>
-        </header>
-
-        <div class="card-content">
-        <div class="content">
-        <div class="control has-icons-left has-icons-right">
-          <input class="input is-large" type="text" placeholder="">
-            <span class="icon is-medium is-left">
-              <i class="fa fa-search"></i>
-            </span>
-            <span class="icon is-medium is-right">
-              <i class="fa fa-check"></i>
-            </span>
-        </div>
-        </div>
+    </div>
+    <div class="container">
+      <div class="box">
+        <div style="max-height:500px;overflow:auto;">
+          <table class="table is-hoverable">
+            <tbody>
+              {% for plot in plots %}
+              <tr>
+                <article class="media">
+                  <figure class="media-left">
+                    <p class="image is-128x128">
+                      <img src="https://bulma.io/images/placeholders/128x128.png">
+                    </p>
+                  </figure>
+                  <div class="media-content">
+                    <div class="content">
+                      <p class="title is-4"> {{ plot.plot.type }} </p>
+                      <p class="subtitle is-6"> {{ plot.plot_date }} </p>
+                      <div class="content">
+                        {{ plot.plot.coordinates }}
+                      </div>
+                    </div>
+                    <nav class="level is-mobile">
+                      <div class="level-left">
+                        <div class="buttons">
+                          <button class="button is-info is-light is-small">Update</button>
+                          <button class="button is-danger is-light is-small">Delete</button>
+                        </div>
+                      </div>
+                    </nav>
+                  </div>
+                </article>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-     -->
-    </div>
   </div>
-  </div>
-</div>
-
-<script async type="text/javascript" src="js/bulma.js"></script>
-</body>
 
 {% endblock content %}
