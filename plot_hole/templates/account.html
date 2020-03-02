@@ -18,47 +18,41 @@
       </div>
     </div>
     <div class="container">
-
-        <div class="tile is-ancestor">
-          <div class="tile is-vertical is-parent">
-            {% for plot in plots %}
-            <div class="tile is-child box">
-              <article class="media">
-                <figure class="media-left">
-                  <p class="image is-128x128">
-                    <img src="https://bulma.io/images/placeholders/128x128.png">
-                  </p>
-                </figure>
-                <div class="media-content">
-                  <div class="content">
-                    <p>
-                      <strong>{{ plot.plot.type }}</strong> <small>{{ plot.plot_date }}</small>
-                      <br>
-                      {{ plot.plot.coordinates }}
+      <div class="box">
+        <div style="max-height:500px;overflow:auto;">
+          <table class="table is-hoverable">
+            <tbody>
+              {% for plot in plots %}
+              <tr>
+                <article class="media">
+                  <figure class="media-left">
+                    <p class="image is-128x128">
+                      <img src="https://bulma.io/images/placeholders/128x128.png">
                     </p>
-                  </div>
-                  <nav class="level is-mobile">
-                    <div class="level-left">
-                      <a class="level-item">
-                        <span class="icon is-small"><i class="fas fa-reply"></i></span>
-                      </a>
-                      <a class="level-item">
-                        <span class="icon is-small"><i class="fas fa-retweet"></i></span>
-                      </a>
-                      <a class="level-item">
-                        <span class="icon is-small"><i class="fas fa-heart"></i></span>
-                      </a>
+                  </figure>
+                  <div class="media-content">
+                    <div class="content">
+                      <p class="title is-4"> {{ plot.plot.type }} </p>
+                      <p class="subtitle is-6"> {{ plot.plot_date }} </p>
+                      <div class="content">
+                        {{ plot.plot.coordinates }}
+                      </div>
                     </div>
-                  </nav>
-                </div>
-                <div class="media-right">
-                  <button class="delete"></button>
-                </div>
-              </article>
-            </div>
-            {% endfor %}
-          </div>
-
+                    <nav class="level is-mobile">
+                      <div class="level-left">
+                        <div class="buttons">
+                          <button class="button is-info is-light is-small">Update</button>
+                          <button class="button is-danger is-light is-small">Delete</button>
+                        </div>
+                      </div>
+                    </nav>
+                  </div>
+                </article>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
