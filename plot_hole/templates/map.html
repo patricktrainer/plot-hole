@@ -28,14 +28,6 @@
           accessToken: 'pk.eyJ1IjoianNvbWEiLCJhIjoibFJmYl9JWSJ9.AUm8d76cbOvVEn2mMeG_ZA'
       }).addTo(mymap);
 
-//       var L.geoJson.ajax(url, {
-//           coordsToLatLng: function (coords) {
-//         //                    latitude , longitude, altitude
-//         //return new L.LatLng(coords[1], coords[0], coords[2]); //Normal behavior
-//         return new L.LatLng(coords[0], coords[1], coords[2]);
-//     }
-// });
-
       function doWork() {
           // ajax the JSON to the server
           $.ajax({
@@ -63,11 +55,10 @@
       	          {{ [plot.plot.coordinates[1],plot.plot.coordinates[0]]|tojson|safe }}, // lat, lng, intensity
                   {% endfor %}];
 
-
-
       var heat = L.heatLayer(
           coord
-        , {radius: 25}).addTo(mymap);
+        , {radius: 10,
+           maxZoom: 15}).addTo(mymap);
 
     </script>
 
