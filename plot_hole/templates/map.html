@@ -7,6 +7,8 @@
       integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
       crossorigin="">
     </script>
+    <script src="https://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js">
+    </script>
 
 <div class="level">
   <div class="level-item">
@@ -26,6 +28,28 @@
           accessToken: 'pk.eyJ1IjoianNvbWEiLCJhIjoibFJmYl9JWSJ9.AUm8d76cbOvVEn2mMeG_ZA'
       }).addTo(mymap);
 
+//       var L.geoJson.ajax(url, {
+//           coordsToLatLng: function (coords) {
+//         //                    latitude , longitude, altitude
+//         //return new L.LatLng(coords[1], coords[0], coords[2]); //Normal behavior
+//         return new L.LatLng(coords[0], coords[1], coords[2]);
+//     }
+// });
+
+      function doWork() {
+          // ajax the JSON to the server
+          $.ajax({
+              type: 'POST',
+              url: '/receiver',
+              data: JSON.stringify (cars),
+              success: function(data) { alert('data: ' + data); },
+              contentType: "application/json",
+              dataType: 'json'
+          });
+          // stop link reloading the page
+          event.preventDefault();
+      }
+
       var popup = L.popup();
       mymap.on('click', function(e){
           var coord = e.latlng;
@@ -34,6 +58,17 @@
           var newMarker = L.marker(e.latlng, {draggable:'true'}).addTo(mymap)
           .bindPopup('Plot a pothole <a href="{{ url_for('posts.plot_pothole') }}?latitude='+lat+'&longitude='+lng+'"> here</a>').openPopup();
       });
+
+      var coord = [{% for plot in plots %}
+      	          {{ [plot.plot.coordinates[1],plot.plot.coordinates[0]]|tojson|safe }}, // lat, lng, intensity
+                  {% endfor %}];
+
+
+
+      var heat = L.heatLayer(
+          coord
+        , {radius: 25}).addTo(mymap);
+
     </script>
 
   </div>

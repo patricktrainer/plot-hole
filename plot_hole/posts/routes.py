@@ -18,13 +18,16 @@ posts = Blueprint("posts", __name__)
 @posts.route("/map", methods=("GET", "POST"))
 def map():
     form = PlotForm()
+    plots = Plot.objects()
 
     if form.validate_on_submit():
         plot = Plot(plot=[form.lat.data, form.long.data], user=current_user.id)
         plot.save()
         flash("Plotted!", "is-primary")
         return redirect(url_for("posts.map"))
-    return render_template("map.html", form=form)
+    return render_template(
+        "map.html", form=form, plots=[plot for plot in plots]
+    )
 
 
 @posts.route("/plots")
