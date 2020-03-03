@@ -30,7 +30,7 @@ def map():
     )
 
 
-@posts.route("/plots")
+@posts.route("/plots/")
 def plots():
     plots = Plot.objects()
     return jsonify([plot for plot in plots])

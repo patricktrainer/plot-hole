@@ -28,19 +28,15 @@
           accessToken: 'pk.eyJ1IjoianNvbWEiLCJhIjoibFJmYl9JWSJ9.AUm8d76cbOvVEn2mMeG_ZA'
       }).addTo(mymap);
 
-      function doWork() {
-          // ajax the JSON to the server
-          $.ajax({
-              type: 'POST',
-              url: '/receiver',
-              data: JSON.stringify (cars),
-              success: function(data) { alert('data: ' + data); },
-              contentType: "application/json",
-              dataType: 'json'
-          });
-          // stop link reloading the page
-          event.preventDefault();
-      }
+
+    $(document).ready(function(){
+      $("button").click(function(){
+        $.get("{{ url_for("posts.plots") }}",
+        function(data,status){
+          alert("Data:" + data);
+        });
+      });
+    });
 
       var popup = L.popup();
       mymap.on('click', function(e){
@@ -48,7 +44,7 @@
           var lat = coord.lat;
           var lng = coord.lng;
           var newMarker = L.marker(e.latlng, {draggable:'true'}).addTo(mymap)
-          .bindPopup('Plot a pothole <a href="{{ url_for('posts.plot_pothole') }}?latitude='+lat+'&longitude='+lng+'"> here</a>').openPopup();
+          .bindPopup().openPopup();
       });
 
       var coord = [{% for plot in plots %}
@@ -63,6 +59,9 @@
     </script>
 
   </div>
+
+    <button>Plot a pothole</button>
+
 </div>
 
 {% endblock %}
